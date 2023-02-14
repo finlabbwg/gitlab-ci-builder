@@ -17,6 +17,17 @@ RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.
     mkdir -p /opt/gradle  &&\
     unzip -d /opt/gradle /tmp/gradle-*.zip
 
+# ----------------------------------------
+# Install GitLab CI required dependencies.
+# ----------------------------------------
+ARG GITLAB_RUNNER_VERSION
+
+RUN curl -Lo /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/v${GITLAB_RUNNER_VERSION}/binaries/gitlab-runner-linux-amd64 && \
+    chmod +x /usr/local/bin/gitlab-runner
+    # Test if the downloaded file was indeed a binary and not, for example,
+    # an HTML page representing S3's internal server error message or something
+    # like that.
+    
 EXPOSE 22
 
 RUN mkdir -p /run/sshd
