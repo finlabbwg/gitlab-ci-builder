@@ -1,5 +1,7 @@
 FROM finlabbwg/ubuntu-ko:22.04
 
+RUN apt-get update
+
 RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
