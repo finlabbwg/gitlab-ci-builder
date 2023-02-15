@@ -1,4 +1,4 @@
-FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:22.04
+FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
 RUN apt-get update
 
