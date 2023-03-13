@@ -34,9 +34,8 @@ RUN mkdir -p /opt/SonarScannerCLI && \
     cd /opt/SonarScannerCLI && \
     wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip && \
     unzip -q sonar-scanner-cli-4.8.0.2856-linux.zip && \
-    mv sonar-scanner-cli-4.8.0.2856-linux/* . && \
-    rm sonar-scanner-cli-4.8.0.2856-linux* && \
-    echo 'export PATH="/opt/SonarScannerCLI/bin:$PATH"' >> ~/.bashrc
+    rm sonar-scanner-cli-4.8.0.2856-linux.zip && \
+    echo 'export PATH="/opt/SonarScannerCLI/sonar-scanner-cli-4.8.0.2856-linux/bin:$PATH"' >> ~/.bashrc
 
 EXPOSE 22
 
