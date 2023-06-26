@@ -11,10 +11,10 @@ ARG TINI_VERSION=v0.19.0
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
     chmod +x /usr/local/bin/tini
 
-ENV GRADLE_VERSION "6.9.1"
+ENV GRADLE_VERSION "7.6"
 ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
-RUN export GRADLE_VERSION="6.9.1" ;export GRADLE_HOME="/opt/gradle/gradle-${GRADLE_VERSION}"; export PATH="${GRADLE_HOME}/bin:$PATH"; 
+RUN export GRADLE_VERSION="7.6" ;export GRADLE_HOME="/opt/gradle/gradle-${GRADLE_VERSION}"; export PATH="${GRADLE_HOME}/bin:$PATH"; 
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp  &&\
     mkdir -p /opt/gradle  &&\
     unzip -d /opt/gradle /tmp/gradle-*.zip
