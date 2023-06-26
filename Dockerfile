@@ -14,7 +14,7 @@ RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/downlo
 ENV GRADLE_VERSION "6.9.1"
 ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
-
+RUN export GRADLE_VERSION="6.9.1" ;export GRADLE_HOME="/opt/gradle/gradle-${GRADLE_VERSION}"; export PATH="${GRADLE_HOME}/bin:$PATH"; 
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp  &&\
     mkdir -p /opt/gradle  &&\
     unzip -d /opt/gradle /tmp/gradle-*.zip
