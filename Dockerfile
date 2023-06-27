@@ -2,10 +2,11 @@ FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs nodejs npm&&\
+RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
-
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
+    apt-get install -y nodejs
 ARG TINI_VERSION=v0.19.0
 
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
