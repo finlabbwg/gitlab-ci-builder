@@ -9,7 +9,7 @@ RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &
 ENV NVM_DIR /root/.nvm
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash &&\
-       .${NVM_DIR}/nvm.sh &&\
+       source ${NVM_DIR}/nvm.sh &&\
        nvm install 18.16.0 &&\
        nvm install 12.22.11 &&\
        nvm install 10.24.0
