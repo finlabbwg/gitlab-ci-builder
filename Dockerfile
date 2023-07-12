@@ -1,12 +1,14 @@
 FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
+SHELL ["/bin/bash", "--login", "-c"]
+
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
 
-ENV NVM_DIR /root/.nvm
+ENV NVM_DIR /usr/local/nvm
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash &&\
        source ${NVM_DIR}/nvm.sh &&\
