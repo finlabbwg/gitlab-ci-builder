@@ -6,7 +6,7 @@ RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &
        apt-get clean &&\
        git lfs install --skip-repo
 
-ENV NVM_DIR ~/.nvm
+ENV NVM_DIR /root/.nvm
 
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash &&\
        .${NVM_DIR}/nvm.sh &&\
