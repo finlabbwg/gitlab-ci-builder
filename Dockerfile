@@ -1,5 +1,7 @@
 FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 RUN apt-get update
 
 RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
