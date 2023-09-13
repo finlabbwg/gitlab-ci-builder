@@ -5,8 +5,10 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends unzip openjdk-17-jdk git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
-    apt-get install -y nodejs
+RUN wget https://nodejs.org/dist/v20.5.1/node-v20.5.1-linux-x64.tar.xz &&\
+       tar -xJf node-v18.6.1-linux-x64.tar.xz -C /usr/local --strip-components=1
+# curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
+# apt-get install -y nodejs
 ARG TINI_VERSION=v0.19.0
 
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
