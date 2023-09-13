@@ -9,6 +9,7 @@ RUN mkdir nodejs &&\
        cd nodejs &&\
        wget https://nodejs.org/dist/v20.5.1/node-v20.5.1-linux-x64.tar.xz &&\
        ls &&\
+       sudo apt-get install xz-utils
        tar -xJf ./node-v20.5.1-linux-x64.tar.xz -C /usr/local --strip-components=1 &&\
        node -v
 # curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
