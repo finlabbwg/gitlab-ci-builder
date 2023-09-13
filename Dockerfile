@@ -5,12 +5,9 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends unzip openjdk-17-jdk git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
-RUN mkdir nodejs &&\
-       cd nodejs &&\
-       wget https://nodejs.org/dist/v20.5.1/node-v20.5.1-linux-x64.tar.xz &&\
+RUN wget https://nodejs.org/dist/v20.5.1/node-v20.5.1-linux-x64.tar.gz &&\
        ls &&\
-       sudo apt-get install xz-utils
-       tar -xJf ./node-v20.5.1-linux-x64.tar.xz -C /usr/local --strip-components=1 &&\
+       tar -xJf ./node-v20.5.1-linux-x64.tar.gz -C /usr/local --strip-components=1 &&\
        node -v
 # curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
 # apt-get install -y nodejs
