@@ -1,23 +1,29 @@
-FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
+FROM  --platform=linux/amd64  docker:git
 
-RUN apt-get update
+ENV TZ=Asia/Seoul
 
-RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
-       apt-get clean &&\
-       git lfs install --skip-repo
+RUN apk add  --no-cache --update musl musl-utils musl-locales tzdata && \
+    cp /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone \
+    apk del tzdata
+
+RUN apk add curl vim wget
+
+# Install packages
+RUN apk add openssh-server
+
+# set locale ko_KR
+ENV LC_ALL=ko_KR.UTF-8
+RUN echo 'export LC_ALL=ko_KR.UTF-8' >> /etc/profile.d/locale.sh && \
+    sed -i 's|LANG=ko_KR.UTF-8|LANG=ko_KR.UTF-8|' /etc/profile.d/locale.sh
+
+RUN apk add unzip git git-lfs &&\
+    git lfs install --skip-repo
 
 ARG TINI_VERSION=v0.19.0
 
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
     chmod +x /usr/local/bin/tini
-
-ENV GRADLE_VERSION "6.9.1"
-ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
-
-RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp  &&\
-    mkdir -p /opt/gradle  &&\
-    unzip -d /opt/gradle /tmp/gradle-*.zip
 
 # ----------------------------------------
 # Install GitLab CI required dependencies.
@@ -29,7 +35,7 @@ RUN curl -Lo /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.ama
     # Test if the downloaded file was indeed a binary and not, for example,
     # an HTML page representing S3's internal server error message or something
     # like that.
-    
+
 EXPOSE 22
 
 RUN mkdir -p /run/sshd
@@ -44,4 +50,3 @@ COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
-
