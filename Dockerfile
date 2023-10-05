@@ -1,8 +1,8 @@
-FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
+FROM  --platform=linux/amd64  node:14.21.3-bullseye
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs &&\
+RUN apt-get install -y --no-install-recommends unzip git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
 
@@ -10,14 +10,6 @@ ARG TINI_VERSION=v0.19.0
 
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
     chmod +x /usr/local/bin/tini
-
-ENV GRADLE_VERSION "6.9.1"
-ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
-ENV PATH=${GRADLE_HOME}/bin:${PATH}
-
-RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp  &&\
-    mkdir -p /opt/gradle  &&\
-    unzip -d /opt/gradle /tmp/gradle-*.zip
 
 # ----------------------------------------
 # Install GitLab CI required dependencies.
