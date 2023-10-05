@@ -1,10 +1,28 @@
 FROM  --platform=linux/amd64  node:14.21.3-bullseye
 
-RUN apt-get update
+ENV TZ 'Asia/Seoul'
+ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get install -y --no-install-recommends unzip git git-lfs &&\
+RUN echo $TZ > /etc/timezone && \
+apt-get update && apt-get install -y locales tzdata && \
+rm /etc/localtime && \
+ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+dpkg-reconfigure -f noninteractive tzdata
+
+RUN apt-get install -y --no-install-recommends \
+    curl vim wget unzip git git-lfs &&\
        apt-get clean &&\
        git lfs install --skip-repo
+
+# Install packages
+RUN apt-get -y install openssh-server && \
+    apt-get -y install vim
+
+# set locale ko_KR
+RUN locale-gen ko_KR.UTF-8
+ENV LANG ko_KR.UTF-8
+ENV LANGUAGE ko_KR.UTF-8
+ENV LC_ALL ko_KR.UTF-8
 
 ARG TINI_VERSION=v0.19.0
 
