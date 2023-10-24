@@ -1,4 +1,4 @@
-FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:22.04
+FROM  --platform=linux/amd64  python:3.11.0-alpine3.15
 
 ENV TZ=Asia/Seoul
 
