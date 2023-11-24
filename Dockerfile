@@ -26,7 +26,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
        apt-get update
 
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
-       RUN docker run hello-world
+       docker run hello-world
 
 # ----------------------------------------
 # Install GitLab CI required dependencies.
