@@ -40,13 +40,6 @@ RUN curl -Lo /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.ama
     # an HTML page representing S3's internal server error message or something
     # like that.
 
-RUN mkdir -p /opt/SonarScannerCLI && \
-    cd /opt/SonarScannerCLI && \
-    wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip && \
-    unzip -q sonar-scanner-cli-4.8.0.2856-linux.zip && \
-    rm sonar-scanner-cli-4.8.0.2856-linux.zip && \
-    echo 'export PATH="/opt/SonarScannerCLI/sonar-scanner-cli-4.8.0.2856-linux/bin:$PATH"' >> ~/.bashrc
-
 EXPOSE 22
 
 RUN mkdir -p /run/sshd
