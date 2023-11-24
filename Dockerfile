@@ -2,7 +2,7 @@ FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends unzip openjdk-11-jdk git git-lfs &&\
+RUN apt-get install -y --no-install-recommends unzip openjdk-11-jdk git git-lfs ca-certificates curl gnupg &&\
        apt-get clean &&\
        git lfs install --skip-repo
 
@@ -11,13 +11,22 @@ ARG TINI_VERSION=v0.19.0
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
     chmod +x /usr/local/bin/tini
 
-ENV GRADLE_VERSION "6.9.1"
+ENV GRADLE_VERSION "3.2.1"
 ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 RUN wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp  &&\
     mkdir -p /opt/gradle  &&\
     unzip -d /opt/gradle /tmp/gradle-*.zip
+
+RUN install -m 0755 -d /etc/apt/keyrings && \
+       curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg &&\
+       chmod a+r /etc/apt/keyrings/docker.gpg &&\
+       echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null &&\
+       apt-get update
+
+RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
+       RUN docker run hello-world
 
 # ----------------------------------------
 # Install GitLab CI required dependencies.
