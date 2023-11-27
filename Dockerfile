@@ -11,6 +11,12 @@ ARG TINI_VERSION=v0.19.0
 RUN curl -Lo /usr/local/bin/tini https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-amd64 && \
     chmod +x /usr/local/bin/tini
 
+RUN wget https://nodejs.org/dist/v16.13.0/node-v16.13.0-linux-x64.tar.gz &&\
+       ls &&\
+       tar -xzf ./node-v16.13.0-linux-x64.tar.gz -C /usr/local --strip-components=1 &&\
+       node -v &&\
+       npm install -g npm@8.1.0
+
 ENV GRADLE_VERSION "3.2.1"
 ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
