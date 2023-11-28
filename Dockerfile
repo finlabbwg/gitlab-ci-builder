@@ -2,7 +2,7 @@ FROM  --platform=linux/amd64  finlabbwg/ubuntu-ko:latest
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends unzip openjdk-11-jdk git git-lfs ca-certificates curl gnupg &&\
+RUN apt-get install -y --no-install-recommends unzip openjdk-8-jdk git git-lfs ca-certificates curl gnupg &&\
        apt-get clean &&\
        git lfs install --skip-repo
 
