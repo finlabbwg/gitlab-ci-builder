@@ -32,8 +32,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
        apt-get update
 
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin &&\
-       service docker start &&\
-       ulimit -n 65536
+       systemctl enable docker.service 
 
 # ----------------------------------------
 # Install GitLab CI required dependencies.
