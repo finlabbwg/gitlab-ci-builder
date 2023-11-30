@@ -7,8 +7,10 @@ RUN apk add  --no-cache --update musl musl-utils musl-locales tzdata && \
     echo $TZ > /etc/timezone \
     apk del tzdata
 
-RUN apk add curl vim wget openssh-server
+RUN apk add --no-cache --update curl vim wget openssh
 
+# Generate SSH host keys
+RUN ssh-keygen -A
 # set locale ko_KR
 ENV LC_ALL=ko_KR.UTF-8
 RUN echo 'export LC_ALL=ko_KR.UTF-8' >> /etc/profile.d/locale.sh && \
@@ -51,7 +53,8 @@ COPY source2filename.py /opt/source2filename.py
 # for reference.
 # -------------------------------------------------------------------------------------
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-
+# Generate SSH host keys
+RUN ssh-keygen -A
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
