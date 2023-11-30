@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Create a folder to store user's SSH keys if it does not exist.
+echo 'root:dummy_passwd'|chpasswd
+
 USER_SSH_KEYS_FOLDER=~/.ssh
 [ ! -d ${USER_SSH_KEYS_FOLDER} ] && mkdir -p ${USER_SSH_KEYS_FOLDER}
 
