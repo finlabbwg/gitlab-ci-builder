@@ -7,7 +7,7 @@ RUN apk add  --no-cache --update musl musl-utils musl-locales tzdata && \
     echo $TZ > /etc/timezone \
     apk del tzdata
 
-RUN apk add --no-cache --update curl vim wget openssh
+RUN apk add --no-cache --update curl vim wget openssh tini
 
 # Generate SSH host keys
 RUN ssh-keygen -A
