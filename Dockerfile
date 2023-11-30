@@ -53,9 +53,8 @@ COPY source2filename.py /opt/source2filename.py
 # for reference.
 # -------------------------------------------------------------------------------------
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-# Generate SSH host keys
-RUN ssh-keygen -A
+
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
 
