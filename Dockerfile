@@ -7,10 +7,7 @@ RUN apk add  --no-cache --update musl musl-utils musl-locales tzdata && \
     echo $TZ > /etc/timezone \
     apk del tzdata
 
-RUN apk add curl vim wget
-
-# Install packages
-RUN apk add openssh-server
+RUN apk add curl vim wget openssh-server
 
 # set locale ko_KR
 ENV LC_ALL=ko_KR.UTF-8
